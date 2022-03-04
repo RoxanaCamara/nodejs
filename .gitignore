@@ -11,6 +11,9 @@
 # production
 /build
 
+# archivos sin importancia
+/salida
+
 # misc
 .DS_Store
 .env.local

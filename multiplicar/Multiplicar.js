@@ -10,7 +10,7 @@ const multiplicar = async(l, num = 0, h) => {
         if(l){
             console.log(salida)
         }        
-        await fs.writeFileSync(`tablaDel${num}.txt`, salida) 
+        await fs.writeFileSync(`./salida/tablaDel${num}.txt`, salida) 
         return `tabla del ${num} creado correctamente`          
     } catch (error) {
         throw error        
