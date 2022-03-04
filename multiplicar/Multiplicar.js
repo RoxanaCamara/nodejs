@@ -1,10 +1,10 @@
 const fs = require('fs')
 
-const multiplicar = async(l = false, num = 0) => {
+const multiplicar = async(l, num = 0, h) => {
 
     try {
         let salida = '';
-        for (let i = 0; i < 11; i++) {
+        for (let i = 1; i < h+1; i++) {
             salida += `${num} X ${i} = ${num * i}\n`
         }
         if(l){
