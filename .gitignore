@@ -12,7 +12,7 @@
 /build
 
 # archivos sin importancia
-/salida
+/salida/*.txt
 
 # misc
 .DS_Store
