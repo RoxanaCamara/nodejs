@@ -37,8 +37,10 @@ const main = async () => {
                tareas.listarSegunEstado(false)
                 break;
             case 5:
-                const ids = await mostrarTareasChecklist(tareas.listadoArr)                
-                tareas.toggleCompletas(ids)
+                const ids = await mostrarTareasChecklist(tareas.listadoArr)  
+                if(ids.length > 0){
+                    tareas.toggleCompletas(ids)
+                }              
                               
                 break;
             case 6:
@@ -47,7 +49,7 @@ const main = async () => {
                     const ok = await confirmar(id)
                     if(ok){
                         tareas.borrarTarea(id)
-                        console.log(`Tarea borrada correctamente\n`.blue)
+                        console.log(`Tarea borrada correctamente\n`.green)
                     }
                 }            
                 break;        

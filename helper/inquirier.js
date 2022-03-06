@@ -123,7 +123,7 @@ const confirmar = async (msg) =>{
 const mostrarTareasChecklist = async (tareas) => {
     if(tareas.length === 0 ){
         console.log(`No hay tareas.`.yellow)
-        return 0
+        return 
     }
     
     let choices = tareas.map( (t, i) => {
@@ -135,7 +135,7 @@ const mostrarTareasChecklist = async (tareas) => {
         }
     })
 
-    choices.push({name: `${'0.'.green} Cancelar`,value: 0})
+    
 
     const preguntas = [
         {

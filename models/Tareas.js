@@ -27,14 +27,24 @@ class Tareas {
             array.forEach( (t, i) => {
                 let indice = `${ i+1}.`.green 
                 let desc = `${t.desc}`
-                let estado =  !!t.completadoEn ? `Completada`.green: `Pendiente`.red
+                let estado = this.mostrarSegunEstado(text, t)
                 console.log( `${indice} ${desc} :: ${estado}`)
              })
         }        
     }
 
+    mostrarSegunEstado = (text, t) => {
+        if(t.completadoEn && text === `No hay tareas.` ){
+            return `Completado`.green
+        }
+        if(t.completadoEn){
+            return `${t.completadoEn}`.green
+        }
+        return `Pendiente`.red
+    }
+
     listadoCompleto = () => {       
-        this.listarTareas(this.listadoArr, ` No hay tareas.`)        
+        this.listarTareas(this.listadoArr, `No hay tareas.`)        
     }
 
     listarSegunEstado = (completadas = true) => {
@@ -64,7 +74,7 @@ class Tareas {
 
         this.listadoArr.forEach( t => {
             if(!ids.includes(t.id)){
-                this._listado[t.id].completadoEn = null 
+                t.completadoEn = null 
             }
         })
     }
