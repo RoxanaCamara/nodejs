@@ -16,10 +16,59 @@ class Tareas {
         return list
     }
 
+    cargarTareasFromArray = (array) => {
+        array.forEach(t => this._listado[t.id]=t);
+    }
+    
+    listarTareas = (array, text) => {
+        if(array.length === 0 ){
+            console.log(`${text}.`.yellow)
+        }else{
+            array.forEach( (t, i) => {
+                let indice = `${ i+1}.`.green 
+                let desc = `${t.desc}`
+                let estado =  !!t.completadoEn ? `Completada`.green: `Pendiente`.red
+                console.log( `${indice} ${desc} :: ${estado}`)
+             })
+        }        
+    }
+
+    listadoCompleto = () => {       
+        this.listarTareas(this.listadoArr, ` No hay tareas.`)        
+    }
+
+    listarSegunEstado = (completadas = true) => {
+        let result = this.listadoArr.filter(t => completadas ? !!t.completadoEn : !t.completadoEn);
+        let texto = completadas ? ` No hay tareas Completadas.` : `No hay tareas Pendientes.`
+        this.listarTareas(result, texto)        
+    }
+   
     crearTarea = (desc) => {
         const t = new Tarea(desc);
         this._listado[t.id]=t
     }
+
+    borrarTarea = (id) => {
+        if(this._listado[id]){           
+            delete this._listado[id]
+        }
+    }
+
+    toggleCompletas = (ids) => {
+        ids.forEach( id => {
+            const tarea = this._listado[id]
+            if(!tarea.completadoEn){
+                tarea.completadoEn= new Date().toISOString()
+            }
+        })
+
+        this.listadoArr.forEach( t => {
+            if(!ids.includes(t.id)){
+                this._listado[t.id].completadoEn = null 
+            }
+        })
+    }
+    
 }
 
 module.exports = Tareas
