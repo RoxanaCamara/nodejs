@@ -7,18 +7,20 @@
 
 const { inquirerMenu, pause, leerInput, menuBorrar, confirmar, mostrarTareasChecklist } = require('./helper/inquirier');
 const Tareas = require('./models/Tareas');
+const Busquedas = require('./models/Busquedas');
+
 const { guardarDB, leerDB } = require('./helper/guardarArchivos');
+const { preguntasAppNotas, preguntasAppClima } = require('./constantes/Constantes');
 
 //App consola
-const main = async () => {
+
+const mainTasks = async () => {
     const tareas = new Tareas()
     const tareasDB = leerDB()
-
     if(tareasDB){
         tareas.cargarTareasFromArray(tareasDB)        
     }
     let opt =''
-
     do {
         opt = await inquirerMenu();
         
@@ -57,11 +59,37 @@ const main = async () => {
                 break;
         }
         guardarDB(tareas.listadoArr)
-        await pause();
-       
+        if(opt !== 0) await pause();        
+    } while (opt !== 0);
+}
+
+const main = async () => {
+
+    const search = new Busquedas();
+
+    do {
+        opt = await inquirerMenu(preguntasAppClima);
+        switch (opt) {
+            case 1:
+                const lugar = leerInput('Ciudad: ')
+                console.log(lugar)
+                search.ciudad(lugar)            
+                console.log('\n Informacion de la ciudad\n'.green)
+                console.log('Ciudad')
+                console.log('Lat')
+                console.log('Lng')
+                console.log('Temperatura')
+                console.log('Minima')
+                console.log('Maxima')
+                break;
         
+            default:
+                break;
+        }
         
     } while (opt !== 0);
 }
 
 main()
+/*Por ahora vamos a comentar lo que seria la app de tareas, 
+cuando terminemos la otra app vamos a unificarlos*/
