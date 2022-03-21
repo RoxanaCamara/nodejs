@@ -4,6 +4,7 @@
 //const { l , b, h } = args
 //multiplicar(l, b, h).then(nombreDelArchivo => console.log(nombreDelArchivo, 'creado')).catch(err => console.log(err))
 
+require('dotenv').config()
 
 const { inquirerMenu, pause, leerInput, menuBorrar, confirmar, mostrarTareasChecklist } = require('./helper/inquirier');
 const Tareas = require('./models/Tareas');
@@ -71,9 +72,10 @@ const main = async () => {
         opt = await inquirerMenu(preguntasAppClima);
         switch (opt) {
             case 1:
-                const lugar = leerInput('Ciudad: ')
-                console.log(lugar)
-                search.ciudad(lugar)            
+                const lugar = await leerInput('Ciudad: ')               
+                const find = await search.ciudad(lugar) 
+                console.log(find) 
+                          
                 console.log('\n Informacion de la ciudad\n'.green)
                 console.log('Ciudad')
                 console.log('Lat')
@@ -86,7 +88,8 @@ const main = async () => {
             default:
                 break;
         }
-        
+
+        if(opt !== 0) await pause();
     } while (opt !== 0);
 }
 
