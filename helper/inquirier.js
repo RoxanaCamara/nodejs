@@ -69,6 +69,48 @@ const menuBorrar = async (tareas) => {
     return id
 }
 
+const listar = async (listar, message, title) => {
+    if(listar.length === 0 ){
+        console.log(`No hay informacion.`.yellow)
+        return 0
+    }
+    
+    let choices = listar.map( (t, i) => {
+        let indice = `${i+1}.`.green
+        return  {
+            name: `${indice} ${t.desc} `,
+            value: t.id
+        }
+    })
+
+    choices.push({name: `${'0.'.green} Cancelar`,value: 0})
+
+    const preguntas = [
+        {
+            type: 'list',
+            name: 'id',
+            message: message,
+            choices: choices
+        }
+    ]
+    
+    console.log('==========================='.green)
+    console.log(`       ${title}        `.green)
+    console.log('==========================='.green)
+    const { id } = await inquirer.prompt(preguntas);
+    return id
+}
+
+const showPlace = async (place) =>{
+    console.log('\n Informacion de la ciudad\n'.green)
+    console.log('Ciudad: ' + place.desc)
+    console.log('Lat: ' + place.lat)
+    console.log('Lng: ' + place.lng)
+    console.log('Temperatura')
+    console.log('Minima')
+    console.log('Maxima')
+}
+
 const confirmar = async (msg) =>{
     const question = [
         {
@@ -117,5 +159,5 @@ const mostrarTareasChecklist = async (tareas) => {
 }
 
 module.exports = {
-    inquirerMenu, pause, leerInput, menuBorrar, confirmar, mostrarTareasChecklist
+    inquirerMenu, pause, leerInput, menuBorrar, confirmar, mostrarTareasChecklist, listar, showPlace
 }

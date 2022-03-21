@@ -6,7 +6,7 @@
 
 require('dotenv').config()
 
-const { inquirerMenu, pause, leerInput, menuBorrar, confirmar, mostrarTareasChecklist } = require('./helper/inquirier');
+const { inquirerMenu, pause, leerInput, menuBorrar, confirmar, mostrarTareasChecklist, listar, showPlace } = require('./helper/inquirier');
 const Tareas = require('./models/Tareas');
 const Busquedas = require('./models/Busquedas');
 
@@ -72,17 +72,12 @@ const main = async () => {
         opt = await inquirerMenu(preguntasAppClima);
         switch (opt) {
             case 1:
-                const lugar = await leerInput('Ciudad: ')               
-                const find = await search.ciudad(lugar) 
-                console.log(find) 
-                          
-                console.log('\n Informacion de la ciudad\n'.green)
-                console.log('Ciudad')
-                console.log('Lat')
-                console.log('Lng')
-                console.log('Temperatura')
-                console.log('Minima')
-                console.log('Maxima')
+                const namePlace = await leerInput('Ciudad: ')               
+                const findPlace = await search.ciudad(namePlace)   
+                const idPlace = await listar(findPlace, '¿Que pais le interesa saber?', 'Seleccione un pais')                
+                const lugarSelec = findPlace.find( l => l.id == idPlace) 
+                showPlace(lugarSelec)
+                
                 break;
         
             default:

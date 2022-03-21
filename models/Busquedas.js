@@ -26,7 +26,7 @@ class Busquedas {
             
             return resp.data.features.map( l =>  ({
                 id: l.id ,
-                nombre: l.place_name,
+                desc: l.place_name,
                 lng: l.center[0],
                 lat: l.center[1]
             }))            
