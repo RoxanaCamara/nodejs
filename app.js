@@ -77,18 +77,18 @@ const main = async () => {
                 const lugarSelec = findPlace.find( l => l.id == idPlace) 
                 const findTemp = await search.clima(lugarSelec)
                 const compleDataPlace = {...lugarSelec,  ...findTemp}    
-                showPlace(compleDataPlace )
-                guardarPlacesDB( [compleDataPlace], `./db/database.json`)                  
+                showPlace(compleDataPlace )  
+                guardarPlacesDB( [lugarSelec ] , `./db/database.json`)                
                 break;
             case 2:  
                 const ciudadesDB = leerDB(`./db/database.json`)
-                if(ciudadesDB.length > 0){ 
-                    console.log(ciudadesDB)              
-                    const id = await listar(ciudadesDB, '¿Que pais le interesa saber?', 'Historial')              
-                    const lugarSelecHist = ciudadesDB.find( l => l.id == id) 
-                    showPlace(lugarSelecHist)
+                if(ciudadesDB.length > 0){                       
+                    const idPlace = await listar(ciudadesDB, '¿Que pais le interesa saber?', 'Seleccione un pais')                
+                    const lugarSelec = ciudadesDB.find( l => l.id == idPlace) 
+                    const findTemp = await search.clima(lugarSelec)
+                    const compleDataPlace = {...lugarSelec,  ...findTemp}    
+                    showPlace(compleDataPlace)                    
                 }else{
-                    console.log(ciudadesDB)
                     console.log('No hay historial'.red)
                 }
                 break;

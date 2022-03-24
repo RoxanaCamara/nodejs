@@ -26,7 +26,7 @@ const guardarPlacesDB = (info, rute) =>{
     }else{
         nn = [info ]
     }
-    fs.writeFileSync(rute, JSON.stringify(nn))
+    guardarDB(nn,rute)
 }
 
 module.exports ={
