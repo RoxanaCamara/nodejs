@@ -102,13 +102,15 @@ const listar = async (listar, message, title) => {
 }
 
 const showPlace = async (place) =>{
+    console.clear()
     console.log('\n Informacion de la ciudad\n'.green)
-    console.log('Ciudad: ' + place.desc)
-    console.log('Lat: ' + place.lat)
-    console.log('Lng: ' + place.lng)
-    console.log('Temperatura')
-    console.log('Minima')
-    console.log('Maxima')
+    console.log('Ciudad: '.yellow  + place.desc)
+    console.log('Lat: '.yellow  + place.lat)
+    console.log('Lon: '.yellow  + place.lon)
+    console.log('Temperatura: '.yellow   + place.temp)
+    console.log('Minima: '.yellow  + place.temMin)
+    console.log('Maxima: '.yellow + place.temMax)
+    console.log('Descripcion: '.yellow   + place.descClima)
 }
 
 const confirmar = async (msg) =>{
@@ -126,7 +128,7 @@ const confirmar = async (msg) =>{
 
 const mostrarTareasChecklist = async (tareas) => {
     if(tareas.length === 0 ){
-        console.log(`No hay tareas.`.yellow)
+        console.log(`No hay tareas.`)
         return 
     }
     

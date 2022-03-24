@@ -10,14 +10,14 @@ const { inquirerMenu, pause, leerInput, menuBorrar, confirmar, mostrarTareasChec
 const Tareas = require('./models/Tareas');
 const Busquedas = require('./models/Busquedas');
 
-const { guardarDB, leerDB } = require('./helper/guardarArchivos');
+const { guardarDB, leerDB, guardarPlacesDB } = require('./helper/guardarArchivos');
 const { preguntasAppNotas, preguntasAppClima } = require('./constantes/Constantes');
 
 //App consola
 
 const mainTasks = async () => {
     const tareas = new Tareas()
-    const tareasDB = leerDB()
+    const tareasDB = leerDB(`./db/data.json`)
     if(tareasDB){
         tareas.cargarTareasFromArray(tareasDB)        
     }
@@ -59,7 +59,7 @@ const mainTasks = async () => {
             default:
                 break;
         }
-        guardarDB(tareas.listadoArr)
+        guardarDB(tareas.listadoArr, `./db/data.json`)
         if(opt !== 0) await pause();        
     } while (opt !== 0);
 }
@@ -67,7 +67,6 @@ const mainTasks = async () => {
 const main = async () => {
 
     const search = new Busquedas();
-
     do {
         opt = await inquirerMenu(preguntasAppClima);
         switch (opt) {
@@ -76,10 +75,23 @@ const main = async () => {
                 const findPlace = await search.ciudad(namePlace)   
                 const idPlace = await listar(findPlace, '¿Que pais le interesa saber?', 'Seleccione un pais')                
                 const lugarSelec = findPlace.find( l => l.id == idPlace) 
-                showPlace(lugarSelec)
-                
+                const findTemp = await search.clima(lugarSelec)
+                const compleDataPlace = {...lugarSelec,  ...findTemp}    
+                showPlace(compleDataPlace )
+                guardarPlacesDB( [compleDataPlace], `./db/database.json`)                  
                 break;
-        
+            case 2:  
+                const ciudadesDB = leerDB(`./db/database.json`)
+                if(ciudadesDB.length > 0){ 
+                    console.log(ciudadesDB)              
+                    const id = await listar(ciudadesDB, '¿Que pais le interesa saber?', 'Historial')              
+                    const lugarSelecHist = ciudadesDB.find( l => l.id == id) 
+                    showPlace(lugarSelecHist)
+                }else{
+                    console.log(ciudadesDB)
+                    console.log('No hay historial'.red)
+                }
+                break;
             default:
                 break;
         }
@@ -91,3 +103,4 @@ const main = async () => {
 main()
 /*Por ahora vamos a comentar lo que seria la app de tareas, 
 cuando terminemos la otra app vamos a unificarlos*/
+
