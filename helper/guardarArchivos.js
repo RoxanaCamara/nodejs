@@ -15,18 +15,12 @@ const leerDB = (rute) =>{
 }
 
 const guardarPlacesDB = (info, rute) =>{
-    if( !fs.existsSync(rute)){
-        return null
+    let data
+    if( fs.existsSync(rute)){        
+        const db = fs.readFileSync(rute, {encoding: 'utf-8'})
+        data = JSON.parse(db)
     }
-    const db = fs.readFileSync(rute, {encoding: 'utf-8'})
-    const data = JSON.parse(db)
-    let nn
-    if(data !== null){
-        nn = [...data, info ]
-    }else{
-        nn = [info ]
-    }
-    guardarDB(nn,rute)
+    !!data ? guardarDB([...data, info ],rute) : guardarDB( [info],rute)    
 }
 
 module.exports ={

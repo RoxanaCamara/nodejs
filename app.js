@@ -78,7 +78,7 @@ const main = async () => {
                 const findTemp = await search.clima(lugarSelec)
                 const compleDataPlace = {...lugarSelec,  ...findTemp}    
                 showPlace(compleDataPlace )  
-                guardarPlacesDB( [lugarSelec ] , `./db/database.json`)                
+                guardarPlacesDB( lugarSelec , `./db/database.json`)                
                 break;
             case 2:  
                 const ciudadesDB = leerDB(`./db/database.json`)
