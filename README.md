@@ -1,5 +1,5 @@
 ###
-tenemos que instalar expres y cors
-##
+
+## TAREAS
 1 - levantar en heroku
-2 - conexion a mongo db
+2- terminar de ver el curso
