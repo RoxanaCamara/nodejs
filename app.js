@@ -13,9 +13,9 @@ const Busquedas = require('./models/Busquedas');
 const { guardarDB, leerDB, guardarPlacesDB } = require('./helper/guardarArchivos');
 const { preguntasAppNotas, preguntasAppClima } = require('./constantes/Constantes');
 
-//App consola
+//Apps en consola
 
-const mainTasks = async () => {
+const mainTasksApp = async () => {
     const tareas = new Tareas()
     const tareasDB = leerDB(`./db/data.json`)
     if(tareasDB){
@@ -64,7 +64,7 @@ const mainTasks = async () => {
     } while (opt !== 0);
 }
 
-const main = async () => {
+const mainClimaApp = async () => {
 
     const search = new Busquedas();
     do {
@@ -100,7 +100,8 @@ const main = async () => {
     } while (opt !== 0);
 }
 
-main()
-/*Por ahora vamos a comentar lo que seria la app de tareas, 
-cuando terminemos la otra app vamos a unificarlos*/
+///REST Api
+const Server = require('./models/server');
+const server = new Server();
+server.listen();
 
