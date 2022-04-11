@@ -19,8 +19,8 @@ class Server {
         this.routes()
     }
 
-    async conectDB() {
-        await dbConnection()
+    conectDB() {
+        dbConnection()
     } 
 
     middelwares(){
@@ -40,7 +40,7 @@ class Server {
 
     listen(){
         this.app.listen(this.port, () => {
-            console.log('Servidos Runninn in port', this.port)
+            console.log('Servidos Runninn in port'.blue, this.port)
         })
     }
 
