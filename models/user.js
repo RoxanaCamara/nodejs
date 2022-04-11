@@ -10,12 +10,13 @@ const UserSchema = Schema({
         required: [true, 'The email is required'],
         unique: true
     },
-    /*
     password: {
         type:String,
         required: [true, 'The password is required'],
         unique: true
     },
+    /*
+    
     img: {
         type:String,
     },
