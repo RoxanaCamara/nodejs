@@ -2,11 +2,14 @@ const {response, request} = require('express')
 const Users = require('../models/User')
 const bcrypt = require('bcryptjs');
 
-const usersGet = (req, res = response) => { 
-
-    res.json({
-        msg: 'GET API - usuariosPatch'
-    });
+const usersGet = async(req, res = response) => {
+    const { limit = 5, from= 0 } = req.query
+    const query = {estado: true}
+    //para ejecutar las dos funciones a la vez
+    const [total, users] = await Promise.all([
+        Users.find(query).skip(Number(from)).limit(Number(limit)),
+        Users.countDocuments(query)])
+    res.json({users, total});     
 }
 const usersPost =  async (req, res = response) => { 
     const {name, email, password, role} = req.body
@@ -14,10 +17,7 @@ const usersPost =  async (req, res = response) => {
     const salt = bcrypt.genSaltSync()
     user.password = bcrypt.hashSync( user.password, salt)
     await user.save();
-    res.json({
-        msg: 'POST API - usuarios', 
-        user
-    });
+    res.json(user);
 }
 const usersPut = async(req, res = response) => { 
 
@@ -30,20 +30,21 @@ const usersPut = async(req, res = response) => {
     }
     await Users.findByIdAndUpdate(id, all)
 
-    res.json({
-        msg: 'PUT API - usuariosPatch',
-        all
-    });
+    res.json(all);
 }
 const usersPatch = (req, res = response) => { 
     res.json({
         msg: 'PATCH API - usuariosPatch'
     });
 }
-const usersDelete = (req, res = response) => { 
-    res.json({
-        msg: 'DELETE API - usuariosPatch'
-    });
+const usersDelete = async (req, res = response) => { 
+    const {id } = req.params
+    //Fisicamente lo borramos de mongo
+    const userDelete = await Users.findByIdAndDelete(id)
+
+    //Recomendado, en donde dejamos su propiedad en falso para dejar de contarlo
+    //const user = await Users.findByIdAndUpdate(id, {estado:false})
+    res.json(userDelete);
 }
 
 module.exports = {
