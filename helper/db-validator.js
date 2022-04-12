@@ -7,6 +7,7 @@ const isRoleValid = async(role='') => {
         throw new Error(`El rol ${role} no esta registrado en la db`)
     }
 }
+
 const isEmailInUsed = async(email='') => {
     const existEmail = await User.findOne({email})
     if(existEmail){
@@ -14,6 +15,14 @@ const isEmailInUsed = async(email='') => {
     }
 }
 
+const existUserForId = async(id='') => {
+    const existId = await User.findById(id)
+    if(!existId){
+        throw new Error(`El id ${id} no es valido en la db`)
+    }
+}
+
+
 module.exports = {
-    isRoleValid, isEmailInUsed
+    isRoleValid, isEmailInUsed, existUserForId
 }
