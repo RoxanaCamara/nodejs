@@ -13,10 +13,7 @@ const usersPost =  async (req, res = response) => {
     const user = new Users({name, email, password, role})
     const salt = bcrypt.genSaltSync()
     user.password = bcrypt.hashSync( user.password, salt)
-
-
     await user.save();
-   
     res.json({
         msg: 'POST API - usuarios', 
         user

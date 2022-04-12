@@ -8,9 +8,9 @@ const isRoleValid = async(role='') => {
     }
 }
 const isEmailInUsed = async(email='') => {
-    const existEmail = User.findOne({email})
-    if(!existEmail){
-        throw new Error(`El email ${existEmail} ya esta registrado en la db`)
+    const existEmail = await User.findOne({email})
+    if(existEmail){
+        throw new Error(`El email ${email} ya esta registrado en la db`)
     }
 }
 
