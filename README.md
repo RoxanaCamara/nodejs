@@ -11,7 +11,13 @@ HEROKU DESPLIEGUE PRUEBAS
 5 - Comente todo lo relacionado a el puerto y la db
 6 - "start": "npm run build && node server.js"
 7 - "start": "npm run build && node app.js"
-8 - "postinstall": "npm run build",
-"start": "node server.js"
+8 - "postinstall": "npm run build",  "start": "node server.js"
+    salio error de que no hay una version de node especificada
+9 - Agrego esto
+    "engines": {
+    "node": "14.17.0",
+    "npm": "6.14.13"
+},
+
 
 https://dev.to/lawrence_eagles/causes-of-heroku-h10-app-crashed-error-and-how-to-solve-them-3jnl
