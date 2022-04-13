@@ -11,3 +11,6 @@
 
 #db json
 /db/*.json
+
+#Variables de entorno
+.env
