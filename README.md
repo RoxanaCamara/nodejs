@@ -19,5 +19,6 @@ HEROKU DESPLIEGUE PRUEBAS
     "npm": "6.14.13"
 },
 
+10 -   PORT = 5000 en Heroku &   "start": "node index.js" &  "engines": { "node": "14.16.1"}
 
 https://dev.to/lawrence_eagles/causes-of-heroku-h10-app-crashed-error-and-how-to-solve-them-3jnl
