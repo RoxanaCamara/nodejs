@@ -19,6 +19,12 @@ const UserSchema = Schema({
         type:String,
         required: [true, 'The Role is required'],
     },
+    uid: {
+        type:String,
+        required: [true, 'The UID is required'],
+        unique: true
+    },
+
     /*
     
     img: {

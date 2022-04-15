@@ -15,6 +15,13 @@ const isEmailInUsed = async(email='') => {
     }
 }
 
+const isEmailNotUsed = async(email='') => {
+    const existEmail = await User.findOne({email})
+    if(!existEmail){
+        throw new Error(`El email ${email} no esta registrado en la db`)
+    }
+}
+
 const existUserForId = async(id='') => {
     const existId = await User.findById(id)
     if(!existId){
@@ -24,5 +31,5 @@ const existUserForId = async(id='') => {
 
 
 module.exports = {
-    isRoleValid, isEmailInUsed, existUserForId
+    isRoleValid, isEmailInUsed, existUserForId, isEmailNotUsed
 }
