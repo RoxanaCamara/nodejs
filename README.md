@@ -1,12 +1,9 @@
 ###
 start proyect
-npm start
-
 nodemon run dev
 
 ###
 Recordatorio en .env.MONGO_COMPAS se encuentra la url de la db
-
 
 ###
 HEROKU DESPLIEGUE PRUEBAS
@@ -31,7 +28,7 @@ https://dev.to/lawrence_eagles/causes-of-heroku-h10-app-crashed-error-and-how-to
 
 https://devcenter.heroku.com/articles/error-codes#h10-app-crashed
 
-
-
-vamos a concentrarnos en hacer el google sing in, es decir lo vamos a hacer en este proyecto
-y no vamos a iniciar ninguno nuevo
+#### Lo que hay que hacer
+1- ingresarr data en la db 
+2- hacer el google sing in (lo vamos a hacer en este proyecto y no vamos a iniciar ninguno nuevo)
+3- 

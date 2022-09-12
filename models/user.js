@@ -18,27 +18,20 @@ const UserSchema = Schema({
     role: {
         type:String,
         required: [true, 'The Role is required'],
+        default: 'USER_CLIENT'
     },
-    uid: {
-        type:String,
-        required: [true, 'The UID is required'],
-        unique: true
-    },
-
-    /*
-    
     img: {
         type:String,
     },
     
-    state: {
+    /*state: {
         type: Boolean,
         default: true        
-    },
+    },*/
     google: {
         type: Boolean,
         default: false        
-    }*/
+    }
 });
 
 

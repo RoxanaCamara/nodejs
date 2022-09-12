@@ -1,7 +1,7 @@
 
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { authPost } = require('../controllers/auth');
+const { authPost, googleSingIn } = require('../controllers/auth');
 const { isEmailNotUsed } = require('../helper/db-validator');
 const { validarCampos } = require('../middlewares/validar-campos');
 
@@ -13,5 +13,10 @@ router.post('/login', [
     check('password', 'Password not is valid').isLength({min: 6}),
     validarCampos
 ], authPost );
+
+router.post('/google', [
+    check('id_token', 'El id_token es necesario').notEmpty(),
+    validarCampos
+], googleSingIn );
 
 module.exports = router;
