@@ -40,10 +40,10 @@ const usersPatch = (req, res = response) => {
 const usersDelete = async (req, res = response) => { 
     const {id } = req.params
     //Fisicamente lo borramos de mongo
-    const userDelete = await Users.findByIdAndDelete(id)
+    //const userDelete = await Users.findByIdAndDelete(id)
 
     //Recomendado, en donde dejamos su propiedad en falso para dejar de contarlo
-    //const user = await Users.findByIdAndUpdate(id, {estado:false})
+    const userDelete = await Users.findByIdAndUpdate(id, {state:false})
     res.json(userDelete);
 }
 

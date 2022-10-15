@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs');
 const { generarJWT } = require('../helper/generar-jwt');
 const { verifyGoogle } = require('../helper/google-verify');
 
-const authPost =  async(req, res = response) => { 
+const authPost =  async (req, res = response) => { 
     
     try {
         const { email, password} = req.body
@@ -14,14 +14,14 @@ const authPost =  async(req, res = response) => {
         if(!user){
             return res.status(404).json({ msg: "User or password invalid"})
         }
-        /*if(!user.estado){
+        if(!user.state){
             return res.status(404).json({ msg: "User or password invalid - For state"})
-        }*/
+        }
         const validPassword = bcrypt.compareSync(password, user.password)
         if(!validPassword){
             return res.status(404).json({ msg: "Password invalid"})
         }
-        const token = generarJWT(user.id)  
+        const token = await generarJWT(user.id)  
         res.json({ token, user});
         
     } catch (error) {
@@ -32,7 +32,7 @@ const authPost =  async(req, res = response) => {
 
 
 const googleSingIn = async (req, res = response) => {
-    const { id_token} = req.body
+    const { id_token } = req.body
     try {        
         const { name, email, picture } = await verifyGoogle(id_token)  
         let usuario = await User.findOne({ email })  
@@ -45,12 +45,12 @@ const googleSingIn = async (req, res = response) => {
             console.log("🚀 ~ file: auth.js ~ line 45 ~ googleSingIn ~ user", user)
             await user.save();
         }
-        /*if(!usuario.estado){
+        if(!usuario.state){
             //tengo que
             res.status(404).json({
                 msg: 'Hable con el admin, usuario bloqueado'
             }) 
-        }*/
+        }
         const token = generarJWT(usuario.id)
         console.log("🚀 ~ file: auth.js ~ line 55 ~ googleSingIn ~ token", token)
         res.json({
