@@ -48,7 +48,7 @@ const googleSingIn = async (req, res = response) => {
 
         usuario = await User.findOne({ email }) 
 
-        if(!usuario){
+        if(!usuario.state){
             //tengo que
             res.status(401).json({
                 msg: 'Hable con el admin, usuario bloqueado'
@@ -61,6 +61,7 @@ const googleSingIn = async (req, res = response) => {
         })
 
     } catch (error) {
+        console.log("🚀 ~ file: auth.js ~ line 65 ~ googleSingIn ~ error", error)
         res.status(404).json({
             msg: 'El token no se pudo verificar'
         })
