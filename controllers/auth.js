@@ -36,23 +36,25 @@ const googleSingIn = async (req, res = response) => {
     try {        
         const { name, email, picture } = await verifyGoogle(id_token)  
         let usuario = await User.findOne({ email })  
+
         if(!usuario){
             //tengo que crearlo
             const data = {
                 name, email, password: ':P', img:picture, google: true
             }
             const user = new User(data)
-            console.log("🚀 ~ file: auth.js ~ line 45 ~ googleSingIn ~ user", user)
             await user.save();
         }
-        if(!usuario.state){
+
+        usuario = await User.findOne({ email }) 
+
+        if(!usuario){
             //tengo que
-            res.status(404).json({
+            res.status(401).json({
                 msg: 'Hable con el admin, usuario bloqueado'
             }) 
         }
-        const token = generarJWT(usuario.id)
-        console.log("🚀 ~ file: auth.js ~ line 55 ~ googleSingIn ~ token", token)
+        const token = await generarJWT(usuario.id)
         res.json({
             usuario,
             token
@@ -60,7 +62,6 @@ const googleSingIn = async (req, res = response) => {
 
     } catch (error) {
         res.status(404).json({
-            ok: false,
             msg: 'El token no se pudo verificar'
         })
     }
