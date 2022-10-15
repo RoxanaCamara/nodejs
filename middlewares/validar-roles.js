@@ -1,3 +1,4 @@
+const { ROLES } = require("../constantes/Constantes");
 
 
 const esAdminRole = async( req = request, res = response, next ) => {
@@ -8,7 +9,7 @@ const esAdminRole = async( req = request, res = response, next ) => {
         });
     }
     const { role, name } = req.user
-    if(role!= 'ADMIN_ROLE' ){
+    if(role!= ROLES.ADMIN ){
         return res.status(401).json({
             msg: `${ name } no es administrador - No puede hacer esto`
         })
@@ -16,6 +17,20 @@ const esAdminRole = async( req = request, res = response, next ) => {
     next()
 }
 
+
+const tieneRole = (...roles) => {
+    return ( req = request, res = response, next ) => {
+        const { role, name } = req.user
+
+        if(!roles.includes( role )){
+            return res.status(401).json({
+                msg: `${ name } no tiene permisos suficientes. Debe tener un rol del tipo ${ roles}.`
+            })
+        }
+        next()
+    }
+}
+
 module.exports={
-    esAdminRole
+    esAdminRole, tieneRole
 }

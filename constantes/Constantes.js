@@ -58,4 +58,10 @@ const preguntasAppClima = [ {
 }]
 
 
-module.exports ={ preguntasAppNotas, preguntasAppClima}
+const ROLES = {
+    ADMIN: 'USER_ADMIN',
+    SELLER: 'USER_SELLER',
+    CLIENT: 'USER_CLIENT'
+}
+
+module.exports ={ preguntasAppNotas, preguntasAppClima, ROLES}
