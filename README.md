@@ -1,9 +1,12 @@
-###
-start proyect
+### Start Proyect
 nodemon run dev
 
 ###
 Recordatorio en .env.MONGO_COMPAS se encuentra la url de la db
+
+## Usar posman
+1- Login usuario, obtenemos el token
+2- en el request que necesitemos correr reemplazamos el valor de x-token por el que nos vino en el login
 
 ###
 HEROKU DESPLIEGUE PRUEBAS
