@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 
 const usersGet = async(req, res = response) => {
     const { limit = 5, from= 0 } = req.query
-    const query = {estado: true}
+    const query = {state: true}
     //para ejecutar las dos funciones a la vez
     const [total, users] = await Promise.all([
         Users.find(query).skip(Number(from)).limit(Number(limit)),

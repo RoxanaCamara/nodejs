@@ -1,20 +1,20 @@
 
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { postCategorie } = require('../controllers/categories');
-const { validarJWT, validarCampos } = require('../middlewares');
+const { postCategorie, getCategories, getCategorie, putCategorie, deleteCategorie } = require('../controllers/categories');
+const { existNameCategorie } = require('../helper/db-validator');
+const { validarJWT, validarCampos, esAdminRole } = require('../middlewares');
 
 const router = Router();
 
 //obtener las categorias - publico
-router.get('/', (req, res) => {
-    res.json('con exito')
-} )
+router.get('/', getCategories )
 
 // obtener el detalle de una categoria - publico
-router.get('/:id', (req, res) => {
-    res.json('con exito')
-})
+router.get('/:name',[
+    check('name').custom( existNameCategorie ),
+    validarCampos
+], getCategorie)
 
 //crear una categoria - privado
 router.post('/', [ 
@@ -24,12 +24,18 @@ router.post('/', [
  ] , postCategorie)
 
 // editar una categoria - privado
-router.put('/:id', (req, res) => {
-    res.json('con exito')
-})
+router.put('/:name',[
+    validarJWT,
+    check('name').custom( existNameCategorie ),
+    validarCampos
+], putCategorie)
 
-router.delete('/:id', (req, res) => {
-    res.json('con exito')
-})
+//eliminar categoria, privado y verificar role
+router.delete('/:name',[
+    validarJWT,
+    esAdminRole,
+    check('name').custom( existNameCategorie ),
+    validarCampos
+], deleteCategorie)
 
 module.exports = router;

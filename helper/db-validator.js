@@ -1,3 +1,4 @@
+const Categorie = require("../models/Categorie");
 const Role = require("../models/Role");
 const User = require("../models/User");
 
@@ -29,7 +30,15 @@ const existUserForId = async(id='') => {
     }
 }
 
+const existNameCategorie = async(nameP='') => {
+    let name = nameP.toUpperCase()
+    const categorie = await Categorie.findOne({ name })
+    if(!categorie){
+        throw new Error(`El name ${name} no es valido en la db`)
+    }
+}
+
 
 module.exports = {
-    isRoleValid, isEmailInUsed, existUserForId, isEmailNotUsed
+    isRoleValid, isEmailInUsed, existUserForId, isEmailNotUsed, existNameCategorie
 }
