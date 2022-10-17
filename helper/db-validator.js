@@ -1,4 +1,5 @@
 const Categorie = require("../models/Categorie");
+const Product = require("../models/Product");
 const Role = require("../models/Role");
 const User = require("../models/User");
 
@@ -38,7 +39,21 @@ const existNameCategorie = async(nameP='') => {
     }
 }
 
+const existCategorieForId = async(id='') => {
+    const categorie = await Categorie.findById( id )
+    if(!categorie){
+        throw new Error(`El id ${id} no es valido en la db`)
+    }
+}
+
+const existProductForId = async(id='') => {
+    const product = await Product.findById( id )
+    if(!product){
+        throw new Error(`El id ${id} no es valido en la db`)
+    }
+}
+
 
 module.exports = {
-    isRoleValid, isEmailInUsed, existUserForId, isEmailNotUsed, existNameCategorie
+    isRoleValid, isEmailInUsed, existUserForId, isEmailNotUsed, existNameCategorie, existCategorieForId, existProductForId
 }
