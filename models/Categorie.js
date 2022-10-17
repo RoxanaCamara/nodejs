@@ -18,11 +18,11 @@ const CategorieSchema = Schema({
     }
 })
 
-CategorieSchema.methods.toJSON = function () {
+/*CategorieSchema.methods.toJSON = function () {
     const { __v, status, ...categorie} = this.toObject()
     const { name, role, email, _id} = categorie.user
     categorie.user = { name, role, email, uid: _id }
     return categorie
-}
+}*/
 
 module.exports = model('Categories', CategorieSchema)

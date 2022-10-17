@@ -35,7 +35,7 @@ const existNameCategorie = async(nameP='') => {
     let name = nameP.toUpperCase()
     const categorie = await Categorie.findOne({ name })
     if(!categorie){
-        throw new Error(`El name ${name} no es valido en la db`)
+        throw new Error(`El name ${ nameP } ya existe en la bd`)
     }
 }
 

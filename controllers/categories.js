@@ -34,8 +34,8 @@ const getCategories = async (req, res = response) => {
 }
 
 const getCategorie = async (req, res = response) => {
-    const name  = req.params.name.toUpperCase()
-    let categorie = await Categorie.findOne({name}).populate('user')
+    const { id }  = req.params
+    let categorie = await Categorie.findById(id).populate('user')
     if(!categorie){
         return res.status(404).json({ msg: `La categoria ${categorie} buscada no existe`})
     }
@@ -43,15 +43,19 @@ const getCategorie = async (req, res = response) => {
 }
 
 const putCategorie = async (req, res = response) => {
-    const name = req.params.name.toUpperCase()
-    const newName = req.body.newName.toUpperCase()
-    const categorie = await Categorie.findOneAndUpdate({name}, {name: newName}, {new: true})
-    res.json({ categorie, oldName: name })
+    const { id } = req.params
+    const { name } = req.body
+    const categorie = await Categorie.findById(id, {name}, {new: true}).populate('user')
+
+    if(!categorie){
+        return res.status(404).json({ msg: `La categoria ${categorie} buscada no existe`})
+    }
+    res.json(categorie)
 }
 
 const deleteCategorie = async (req, res = response) => {
-    const name = req.params.name.toUpperCase()
-    const categorie = await Categorie.findOneAndUpdate({name}, {status: false}, {new: true})
+    const { id } = req.params
+    const categorie = await Categorie.findById(id, {status: false}, {new: true}).populate('user')
     res.json(categorie)
 }
 
