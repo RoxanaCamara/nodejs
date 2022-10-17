@@ -34,7 +34,7 @@ const existUserForId = async(id='') => {
 const existNameCategorie = async(nameP='') => {
     let name = nameP.toUpperCase()
     const categorie = await Categorie.findOne({ name })
-    if(!categorie){
+    if(categorie){
         throw new Error(`El name ${ nameP } ya existe en la bd`)
     }
 }
@@ -53,7 +53,15 @@ const existProductForId = async(id='') => {
     }
 }
 
+const existNameProduct = async(nameP='') => {
+    let name = nameP.toUpperCase()
+    const product = await Product.findOne({ name })
+    if(product){
+        throw new Error(`El name ${ nameP } ya existe en la bd`)
+    }
+}
+
 
 module.exports = {
-    isRoleValid, isEmailInUsed, existUserForId, isEmailNotUsed, existNameCategorie, existCategorieForId, existProductForId
+    isRoleValid, isEmailInUsed, existUserForId, isEmailNotUsed, existNameCategorie, existCategorieForId, existProductForId, existNameProduct
 }

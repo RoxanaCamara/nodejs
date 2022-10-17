@@ -8,12 +8,13 @@ const productPost = async (req, res = response) => {
 
     if(productDB){
         return res.status(400).json({
-            msg: `El producto ${ productDB.name }, ya existe`
+            msg: `El producto ${ name }, ya existe`
         })
     }
     const data = {
         name, 
-        name, price, description,
+        price, 
+        description,
         user: req.user._id,
         categorie: categorie
     }
@@ -24,7 +25,7 @@ const productPost = async (req, res = response) => {
 
 }
 
-/*const productGet = async (req, res = response) => {
+const productsGet = async (req, res = response) => {
     const { limit = 5, from= 0 } = req.query
     const query = {status: true}
     const [total, products] = await Promise.all([
@@ -33,9 +34,9 @@ const productPost = async (req, res = response) => {
     res.json({products, total});    
 }
 
-const productsGet = async (req, res = response) => {
-    const {id}  = req.params
-    let product = await Product.findById(id).populate([ 'user','categorie'])
+const productGet = async (req, res = response) => {
+    const { id }  = req.params
+    let product = await Product.findById(id).populate('user','categorie')
     if(!product){
         return res.status(404).json({ msg: `El producto buscado no existe`})
     }
@@ -44,17 +45,23 @@ const productsGet = async (req, res = response) => {
 
 const productPut = async (req, res = response) => {
     const { id } = req.params
-    const { name } = req.body
-    const categorie = await Product.findById(id, {name}, {new: true})
-    res.json({ categorie, oldName: name })
+    const { name, price, description } = req.body
+    const product = await Product.findByIdAndUpdate(id, {name, price, description}, {new: true}).populate('user','categorie')
+    if(!product){
+        return res.status(404).json({ msg: `El producto buscado no existe`})
+    }
+    res.json({ product, oldName: name })
 }
 
 const productDelete = async (req, res = response) => {
     const { id } = req.params
-    const categorie = await Product.findById(id, {status: false}, {new: true}).populate('user', 'categorie')
-    res.json(categorie)
-}*/
+    const product = await Product.findByIdAndUpdate(id, {status: false}, {new: true}).populate('user', 'categorie')
+    if(!product){
+        return res.status(404).json({ msg: `El producto buscado no existe`})
+    }
+    res.json(product)
+}
 
 module.exports = {
-    productPost //, productsGet, productPut, productDelete, productGet
+    productPost, productsGet, productPut, productDelete, productGet
 }

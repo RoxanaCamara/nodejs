@@ -45,7 +45,7 @@ const getCategorie = async (req, res = response) => {
 const putCategorie = async (req, res = response) => {
     const { id } = req.params
     const { name } = req.body
-    const categorie = await Categorie.findById(id, {name}, {new: true}).populate('user')
+    const categorie = await Categorie.findByIdAndUpdate(id, {name}, {new: true}).populate('user')
 
     if(!categorie){
         return res.status(404).json({ msg: `La categoria ${categorie} buscada no existe`})
