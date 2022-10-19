@@ -64,4 +64,12 @@ const ROLES = {
     CLIENT: 'USER_CLIENT'
 }
 
-module.exports ={ preguntasAppNotas, preguntasAppClima, ROLES}
+const COLECCIONES = [
+    'user',
+    'categorie',
+    'product',
+    'rol'
+]
+
+
+module.exports ={ preguntasAppNotas, preguntasAppClima, ROLES, COLECCIONES }
