@@ -1,6 +1,7 @@
-const path = require('path')
 
-const loadFiles = (req, res = response) => {
+const { subirArchivo } = require('../helper/subir-archivo');
+
+const loadFiles = async(req, res = response) => {
 
     if (!req.files || Object.keys(req.files).length === 0 || !req.files.archivo) {
         res.status(400).json({ msg: 'No files were uploaded.'});
@@ -11,16 +12,12 @@ const loadFiles = (req, res = response) => {
         return;
     }
 
-
-    const { archivo } = req.files;
-    const uploadPath = path.join( __dirname, '../uploads/', archivo.name);
-
-    archivo.mv(uploadPath,  (err) => {
-        if (err) {
-            return res.status(500).json({ msg: err });
-        }
-        res.json( {  msg: 'File uploaded to ' + uploadPath  });
-    })
+    try {
+        const nombre = await subirArchivo(req.files, ['xlsx'], 'excel')    
+        res.json({ msg: 'File uploaded to ' + nombre });
+    } catch (msg) {
+        res.status(400).json(msg)
+    }
 }
 
 module.exports = {
