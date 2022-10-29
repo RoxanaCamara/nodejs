@@ -803,7 +803,7 @@
 								{
 									"key": "archivo",
 									"type": "file",
-									"src": "/C:/Users/L1001376/Pictures/Screenshots/Captura de pantalla (14).png"
+									"src": "/C:/Users/L1001376/Downloads/Links útiles_subco (1).xlsx"
 								}
 							],
 							"options": {
@@ -820,6 +820,108 @@
 							"path": [
 								"api",
 								"uploads"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPLOADS_PRODUCT",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "archivo",
+									"type": "file",
+									"src": "/C:/Users/L1001376/Pictures/Screenshots/Captura de pantalla (49).png"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/uploads/products/634ca1d9e1cc0f60dd43b62f",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"uploads",
+								"products",
+								"634ca1d9e1cc0f60dd43b62f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPLOADS_USER",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "archivo",
+									"type": "file",
+									"src": "/C:/Users/L1001376/Pictures/Screenshots/Captura de pantalla (17).png"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/uploads/users/634a4bdd075eb128aade2884",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"uploads",
+								"users",
+								"634a4bdd075eb128aade2884"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UPLOADS_USER",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/uploads/users/634bcea29f747d33278dce60",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"uploads",
+								"users",
+								"634bcea29f747d33278dce60"
 							]
 						}
 					},
