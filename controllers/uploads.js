@@ -81,8 +81,6 @@ const showImage = async (req, res = response) => {
 
     if(model.img){
         const pathImg = path.join(__dirname, '../uploads', collection, model.img )
-        console.log("🚀 ~ file: uploads.js ~ line 86 ~ showImage ~ pathImg", pathImg)
-
         if(fs.existsSync(pathImg)){
             return res.sendFile(pathImg)
         }        
