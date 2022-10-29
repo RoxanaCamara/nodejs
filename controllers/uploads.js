@@ -1,25 +1,52 @@
 
 const { subirArchivo } = require('../helper/subir-archivo');
+const Product = require('../models/Product');
+const User = require('../models/User');
 
 const loadFiles = async(req, res = response) => {
 
-    if (!req.files || Object.keys(req.files).length === 0 || !req.files.archivo) {
-        res.status(400).json({ msg: 'No files were uploaded.'});
-        return;
-    }
-    if (!req.files.archivo) {
-        res.status(400).json({ msg: 'No files were uploaded.'});
-        return;
-    }
-
     try {
-        const nombre = await subirArchivo(req.files, ['xlsx'], 'excel')    
+        const nombre = await subirArchivo(req.files, ['jpg', 'png'], 'uploads')    
         res.json({ msg: 'File uploaded to ' + nombre });
     } catch (msg) {
         res.status(400).json(msg)
     }
 }
 
+const updateImage = async (req, res = response) => {
+    const { id, collection } = req.params;
+    let model;
+    switch (collection) {
+        case 'users':
+            model = await User.findById(id)
+            if(!model){
+                res.status(400).json({ msg: `No existe un usuario con el id ${id}`})
+            }
+            break;    
+        case 'products':
+            model = await Product.findById(id)
+            if(!model){
+                res.status(400).json({ msg: `No existe un producto con el id ${id}`})
+            } 
+            
+        break;
+        default: 
+            res.status(400).json({ msg: `No existe ninguna coleccion con el id ${id}`})
+            break;
+    }
+
+    try {
+        const nombre = await subirArchivo(req.files, undefined, collection) 
+        model.img = nombre
+        await model.save()
+        res.json(model)        
+    } catch (msg) {
+        res.status(400).json(msg)
+    }
+
+    
+}
+
 module.exports = {
-    loadFiles
+    loadFiles, updateImage
 }
