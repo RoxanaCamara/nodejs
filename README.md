@@ -32,6 +32,4 @@ https://dev.to/lawrence_eagles/causes-of-heroku-h10-app-crashed-error-and-how-to
 https://devcenter.heroku.com/articles/error-codes#h10-app-crashed
 
 #### Lo que hay que hacer
-1- despues verificar todos los gets de postman del search
-2- 
-
+1- Que el login de google se conecte con el back

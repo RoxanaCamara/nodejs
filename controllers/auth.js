@@ -61,12 +61,16 @@ const googleSingIn = async (req, res = response) => {
         })
 
     } catch (error) {
-        console.log("🚀 ~ file: auth.js ~ line 65 ~ googleSingIn ~ error", error)
         res.status(404).json({
             msg: 'El token no se pudo verificar'
         })
     }
 
 }
+const renovarToken = async (req, res = response) => {
+    const { user } = req
+    const token = await generarJWT(user.id)
+    res.json({ user, token })
+}
 
-module.exports = { authPost, googleSingIn }
+module.exports = { authPost, googleSingIn, renovarToken }

@@ -24,6 +24,8 @@ class Server {
         {
             cors: {
                 origin: "http://localhost:3000",
+                allowedHeaders: ["x-token"],
+                methods: ["GET", "POST"],
                 credentials: true
             }
         })
@@ -80,7 +82,7 @@ class Server {
     }
 
     sockets() {
-        this.io.on('connection', socketController)
+        this.io.on('connection', (socket) => socketController(socket, this.io))
     }
 
 }
