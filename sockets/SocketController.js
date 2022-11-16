@@ -7,7 +7,6 @@ const chatMensajes = new ChatMensajes()
 
 const socketController = async( socket = new Socket, io ) => {
     const usuario = await comprobarJWT(socket.handshake.headers['x-token'])
-    console.log("🚀 ~ file: SocketController.js ~ line 8 ~ socketController ~ usuario", usuario)
     
     if(!usuario){
         return socket.disconnect()
@@ -19,6 +18,12 @@ const socketController = async( socket = new Socket, io ) => {
     socket.on( 'disconnect', () => { 
         chatMensajes.desconectarUsuario(usuario.id)
         io.emit('usuarios-activos', chatMensajes.usuariosArray()) 
+    })
+
+
+    socket.on( 'enviar-mensajes', ({mensaje}) => { 
+        chatMensajes.enviarMensaje(usuario.uid, usuario.name, mensaje)
+        io.emit('recibir-mensajes', chatMensajes.ultimos10())        
     })
 }
 
