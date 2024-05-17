@@ -25,14 +25,19 @@
 			data-shape="rectangular"
 			data-logo_alignment="left"></div>
 
-		<button id="g_id_signout">Sign Out</button>
+		<button id="g_id_signout" style="display: none">Sign Out</button>
 
 		<hr />
 		<h1>One Tap</h1>
+		<p id="name"></p>
 
 		<script>
+			const button = document.getElementById("g_id_signout");
+			const p = document.getElementById("name");
+
 			function handleCredentialResponse(response) {
 				const body = { id_token: response.credential };
+				console.log(body);
 				fetch("http://localhost:8080/api/auth/google", {
 					method: "POST",
 					headers: {
@@ -42,13 +47,13 @@
 				})
 					.then((r) => r.json())
 					.then((resp) => {
-						console.log(resp);
-						localStorage.setItem("email", resp.usuario.correo);
+						localStorage.setItem("email", resp.usuario.email);
+						button.style.display = "";
+						p.textContent = resp.usuario.name;
 					})
 					.catch(console.warn);
 			}
 
-			const button = document.getElementById("g_id_signout");
 			button.onclick = async () => {
 				console.log(google.accounts.id);
 				google.accounts.id.disableAutoSelect();
