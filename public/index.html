@@ -9,30 +9,33 @@
 		<h1>Google Signin</h1>
 		<hr />
 
-		<div
-			id="g_id_onload"
-			data-client_id="1023916028923-mnn067lcjn3itrr0lo8oj1s07kddgrcj.apps.googleusercontent.com"
-			data-callback="handleCredentialResponse"
-			data-auto_prompt="false"
-			data-auto_select="true"></div>
+		<di id="google">
+			<div
+				id="g_id_onload"
+				data-client_id="1023916028923-mnn067lcjn3itrr0lo8oj1s07kddgrcj.apps.googleusercontent.com"
+				data-callback="handleCredentialResponse"
+				data-auto_prompt="false"
+				data-auto_select="true"></div>
 
-		<div
-			class="g_id_signin"
-			data-type="standard"
-			data-size="large"
-			data-theme="outline"
-			data-text="sign_in_with"
-			data-shape="rectangular"
-			data-logo_alignment="left"></div>
+			<div
+				class="g_id_signin"
+				data-type="standard"
+				data-size="large"
+				data-theme="outline"
+				data-text="sign_in_with"
+				data-shape="rectangular"
+				data-logo_alignment="left"></div>
+		</di>
 
 		<button id="g_id_signout" style="display: none">Sign Out</button>
 
 		<hr />
 		<h1>One Tap</h1>
 		<p id="name"></p>
-
+		<button id="g_id_signout" style="display: none">Sign Out</button>
 		<script>
-			const button = document.getElementById("g_id_signout");
+			const google = document.getElementById("google");
+			const g_id_signout = document.getElementById("g_id_signout");
 			const p = document.getElementById("name");
 
 			function handleCredentialResponse(response) {
@@ -48,13 +51,14 @@
 					.then((r) => r.json())
 					.then((resp) => {
 						localStorage.setItem("email", resp.usuario.email);
-						button.style.display = "";
+						google.style.display = "none";
+						g_id_signout.style.display = "";
 						p.textContent = resp.usuario.name;
 					})
 					.catch(console.warn);
 			}
 
-			button.onclick = async () => {
+			g_id_signout.onclick = async () => {
 				console.log(google.accounts.id);
 				google.accounts.id.disableAutoSelect();
 				google.accounts.id.revoke(localStorage.getItem("email"), (done) => {
