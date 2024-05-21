@@ -1,8 +1,8 @@
 const { response, request, json } = require("express");
-const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const { generarJWT } = require("../helper/generar-jwt");
 const { verifyGoogle } = require("../helper/google-verify");
+const { User } = require("../models");
 
 const authPost = async (req, res = response) => {
 	try {

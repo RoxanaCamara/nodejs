@@ -2,8 +2,8 @@
 const cloudinary = require('cloudinary').v2
 cloudinary.config(process.env.CLOUDINARY_URL)
 const { subirArchivo } = require('../helper/subir-archivo');
+const { User } = require('../models');
 const Product = require('../models/Product');
-const User = require('../models/User');
 
 const fs = require('fs');
 const path = require('path');
